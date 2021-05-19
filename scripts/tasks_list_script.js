@@ -31,7 +31,7 @@ function clearDisplayedTasksItems(){
 }
 
 function renderOneTaskItem(oneTask){
-  const tasksListModuleForm =  document.getElementById("tasks_list_display");
+  const tasksListModuleForm =  document.getElementById("tasks_list_items_display");
   const tasktext = oneTask.taskText;
   const isChecked = oneTask.checked === 1 ? 'done' : '';
   const taskID = oneTask.taskID;
