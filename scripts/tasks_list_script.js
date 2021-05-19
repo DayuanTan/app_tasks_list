@@ -132,7 +132,7 @@ function deleteOneTask(event){
   console.log(111111);
 }
 // when user delete a task
-let tasksListUlTag = document.getElementById("tasks_list_display");
+let tasksListUlTag = document.getElementById("tasks_list_items_display");
 tasksListUlTag.addEventListener('click', event =>{
   if (event.target.classList.contains("tasks_list_delete")){
     console.log("selected taskID to delete is: ", event.target.parentElement.dataset.key);
