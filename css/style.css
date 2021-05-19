@@ -33,12 +33,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
+}
+
 .tasks_list_elem span {
-flex-grow: 1;
-margin-left: 10px;
-margin-right: 10px;
-font-size: 22px;
+    flex-grow: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 22px;
 }
 
 .delete-task svg {
@@ -51,13 +52,14 @@ font-size: 22px;
     background-color: transparent;
     outline: none;
     cursor: pointer;
-  }
+}
 
 .tasks_list_input {
     width: 80%;
     padding: 10px;
     border-radius: 4px;
-    border: 3px solid #333;
+    border: 3px solid orange;
     display: block;
     margin:auto;
-  }
+    margin-bottom: 20px;
+}
