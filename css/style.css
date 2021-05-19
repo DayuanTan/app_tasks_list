@@ -37,7 +37,7 @@
     margin-bottom: 20px;
 }
 
-.tasks_list_display {
+.tasks_list_items_display {
     width: 60%;
     margin:auto;
     text-align: left;
@@ -46,7 +46,7 @@
     opacity: 0.6;
 }
 
-.tasks_list_elem {
+.tasks_list_item {
     margin-bottom: 10px;
     width: 100%;
     display: flex;
@@ -54,7 +54,7 @@
     justify-content: space-between;
 }
 
-.tasks_list_elem span {
+.tasks_list_item span {
     flex-grow: 1;
     margin-left: 0px;
     margin-right: 10px;
