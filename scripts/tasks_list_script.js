@@ -21,21 +21,28 @@ function clearDisplayedTasksList(){
       element.remove();
     });
   }
+  //delete no tasks prompt
+  let noTasksPrompt = document.querySelectorAll(".task_nofound_prompt");
+  if(noTasksPrompt){
+    noTasksPrompt.forEach(element => {
+      element.remove();
+    });
+  }
 }
 
 function renderTaskElem(oneTask){
   const tasksListModuleForm =  document.getElementById("tasks_list_display");
   const tasktext = oneTask.taskText;
-  const isChecked = oneTask.checked === 1 ? true : false;
+  const isChecked = oneTask.checked === 1 ? 'done' : '';
   const taskID = oneTask.taskID;
 
   const oneTaskEle = document.createElement("li");
   oneTaskEle.setAttribute('class', `tasks_list_elem ${isChecked}`);
+  oneTaskEle.setAttribute('data-key', taskID);
   oneTaskEle.innerHTML = `
       <input id=${taskID} type="checkbox"/>
-      <label for="1" class="tick js-tick"></label>
       <span>${tasktext}</span>
-      <button class="delete-task" id="tasks_list_delete_button">
+      <button class="tasks_list_delete" >
       <svg><use href="#delete-icon"></use></svg>
       </button>
   `;
@@ -119,13 +126,15 @@ document.getElementById("tasks_list_form").addEventListener("submit", event => {
 
 
 
-function deleteOneTask(){
-
+function deleteOneTask(event){
+  event.preventDefault();
+  console.log(111111);
 }
 // when user delete a task
-let deleteButtonObjList = document.querySelectorAll("tasks_list_delete_button");
-if (deleteButtonObjList != null){
-  for (let i = 0; i < deleteButtonObjList.length; i++){
-    deleteButtonObjList[i].addEventListener("click", deleteOneTask);
+let tasksListUlTag = document.getElementById("tasks_list_display");
+tasksListUlTag.addEventListener('click', event =>{
+  if (event.target.classList.contains("tasks_list_delete")){
+    console.log("selected taskID to delete is: ", event.target.parentElement.dataset.key);
   }
-}
+});
+
