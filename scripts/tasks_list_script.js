@@ -3,124 +3,74 @@
 
 
 import Task from './Task.js'; 
-import TasksList from './TasksList.js'; 
-let Task1 = new Task();
-let TasksList1 = new TasksList();
 
 
-function showTaskElem(oneTask){
-    const tasksListModuleForm =  document.getElementById("tasks_list_form");
-    const tasktext = oneTask.text;
-    const isChecked = oneTask.checked === 1 ? true : false;
-    const taskID = oneTask.id;
-
-    const oneTaskEle = document.createElement("li");
-    oneTaskEle.setAttribute('class', `tasks_list_elem ${isChecked}`);
-    oneTaskEle.innerHTML = `
-        <input id=${taskID} type="checkbox"/>
-        <label for="1" class="tick js-tick"></label>
-        <span>${tasktext}</span>
-        <button class="delete-task">
-        <svg><use href="#delete-icon"></use></svg>
-        </button>
-    `;
-    tasksListModuleForm.appendChild(oneTaskEle);
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    // step 1 read from json
-    fetch("./tasks_list/tasks_list_all_tasks.json")// the return value of fetch() is response object
-    .then( /* FILL IN RESPONSE HANDLING HERE */ 
-      function(response){
-        const response_json =  response.json();
-        console.log("response_json.length: ", response_json.length);
-        console.log("Object.keys(response_json).length: ", Object.keys(response_json).length);
-        if (response.ok){
-           return response_json;
-        }else{
-          console.log("Fetch err: ", response.error);
-        }
-      }
-    )
-    .then(
-        entries => {
-        // step 2: if no task, then show  prompt
-        console.log("entries.length: ", entries.length);
-        if (entries.length === 0 ){
-            console.log(1);
-            let tasksListModuleTitle =  document.getElementById("tasks_list_title");
-            const noTaskFoudnPrompt = document.createElement("div");
-            noTaskFoudnPrompt.setAttribute('class', `task_nofound_prompt`);
-            noTaskFoudnPrompt.textContent = "No tasks found yet. Let's create a task now:";
-            tasksListModuleTitle.appendChild(noTaskFoudnPrompt);
-            console.log(2);
-        }
-        // step 3: if has task, then show tasks
-        entries.forEach((entry) => {
-            console.log("entry: ", entry)
-            showTaskElem(entry);
-        })
-    })
-    .catch(function(error) {
-        console.log('Looks like there was a problem: \n', error);
-    });
-    
-
-
-
-});
-
-
-
-
-// document.getElementById("tasks_list_form").addEventListener("submit", event => {
-//   // event.preventDefault();
-//   //get usr input task
-//   const usr_input = document.getElementById("tasks_list_usrinput");
-//   const usr_input_text = usr_input.value.trim();
-//   console.log("usr_input: ", usr_input_text);
-//   //clean it after 'enter'
-//   if (usr_input_text !== '') {
-//     usr_input.value = '';
-//     usr_input.focus();
-//   }
-//   //write into json
-//   var xhr = new XMLHttpRequest();
-//   var url = "./tasks_list/tasks_list_all_tasks.json";
-//   xhr.open("POST", url, true);
-//   xhr.setRequestHeader("Content-Type", "application/json");
-//   xhr.onreadystatechange = function () {
-//       if (xhr.readyState === 4 && xhr.status === 200) {
-//           var json = JSON.parse(xhr.responseText);
-//           console.log(json.email + ", " + json.password);
-//       }
-//   };
-//   var data = JSON.stringify({"email": "hey@mail.com", "password": "101010"});
-//   xhr.send(data);
-// });
-
-
-
-
-function getExistedTasksFromLS(){
+function getExistedAllTasksFromLS(){
   let myStorage = window.localStorage;
   let allTasksList =  JSON.parse(myStorage.getItem("tasksList"));  
   console.log("localStorage allTasksList: ", allTasksList);
   return allTasksList;
 }
 
-function setTasksListIntoLS(){
-  let allTasksList = getExistedTasksFromLS();
-  let newTask3 = {"text": "333",
-  "checked": 0,
-  "id": 3,
-  "order": 3,
-  "date": "05-18-2021"};
-  allTasksList.appendChild(newTask3);
 
-
+function clearDisplayedTasksList(){
+  //delete the old tasks display page
+  let taskListDiaplayTag = document.querySelectorAll(".tasks_list_elem");
+  if(taskListDiaplayTag){
+    taskListDiaplayTag.forEach(element => {
+      element.remove();
+    });
+  }
 }
+
+function renderTaskElem(oneTask){
+  const tasksListModuleForm =  document.getElementById("tasks_list_display");
+  const tasktext = oneTask.taskText;
+  const isChecked = oneTask.checked === 1 ? true : false;
+  const taskID = oneTask.taskID;
+
+  const oneTaskEle = document.createElement("li");
+  oneTaskEle.setAttribute('class', `tasks_list_elem ${isChecked}`);
+  oneTaskEle.innerHTML = `
+      <input id=${taskID} type="checkbox"/>
+      <label for="1" class="tick js-tick"></label>
+      <span>${tasktext}</span>
+      <button class="delete-task" id="tasks_list_delete_button">
+      <svg><use href="#delete-icon"></use></svg>
+      </button>
+  `;
+  tasksListModuleForm.appendChild(oneTaskEle);
+}
+
+function renderTasksList(){
+  clearDisplayedTasksList();
+  // step 1 read from DOM localStorage
+  let allTasksList = getExistedAllTasksFromLS();
+  // step 2: if no task, then show  prompt
+  if (allTasksList == null || allTasksList.length === 0 ){
+      console.log("show no task prompt");
+      let tasksListModuleTitle =  document.getElementById("tasks_list_title");
+      const noTaskFoudnPrompt = document.createElement("div");
+      noTaskFoudnPrompt.setAttribute('class', `task_nofound_prompt`);
+      noTaskFoudnPrompt.textContent = "No tasks found yet. Let's create a task now:";
+      tasksListModuleTitle.appendChild(noTaskFoudnPrompt);
+  }
+  // step 3: if has task, then show tasks
+  if (allTasksList != null){
+    console.log("allTasksList.length: ", allTasksList.length);
+    allTasksList.forEach((oneTask) => {
+        console.log("read oneTask: ", oneTask)
+        renderTaskElem(oneTask);
+    })
+  }
+}
+
+// first to do when DOM loaded
+document.addEventListener('DOMContentLoaded', renderTasksList);
+
+
+
+
 
 function getTodayDate(){
   var today = new Date();
@@ -129,10 +79,11 @@ function getTodayDate(){
   var yyyy = today.getFullYear();
 
   today = mm + '/' + dd + '/' + yyyy;
-  console.log(today);
+  console.log("today: ", today);
   return today;
 }
 
+// when user enter a new task
 document.getElementById("tasks_list_form").addEventListener("submit", event => {
   event.preventDefault();
 
@@ -143,14 +94,38 @@ document.getElementById("tasks_list_form").addEventListener("submit", event => {
   //create a new task obj
   const usrInput = document.getElementById("tasks_list_usrinput");
   const usrInputText = usrInput.value.trim();
+  if (usrInputText !== '') {// clean it after 'enter'
+    usrInput.value = '';
+    usrInput.focus();
+  }
   let aNewTask = new Task(usrInputText, tasksListCounter+1, 0, 0, getTodayDate()); 
   console.log("aNewTask: ", aNewTask);
-  // append into existed tasksList
-  let allTasksList = getExistedTasksFromLS();
-  const appendedTasksList = [allTasksList, aNewTask]
-  console.log("appendedTasksList: ", appendedTasksList);
+  // combine existed and new tasks into a new tasksList array
+  let allTasksList = getExistedAllTasksFromLS();
+  let newAllTasksListArray = [];
+  if (allTasksList != null){
+    for (let i = 0; i < allTasksList.length; i++){
+      newAllTasksListArray.push(allTasksList[i]);
+    }
+  }
+  newAllTasksListArray.push(aNewTask);
+  console.log("newAllTasksListArray: ", newAllTasksListArray);
   // update/replace localStorage
-  myStorage.setItem('tasksList', JSON.stringify(appendedTasksList));
-  getExistedTasksFromLS();
+  myStorage.setItem('tasksList', JSON.stringify(newAllTasksListArray));
+  // render/display
+  renderTasksList();
 
 });
+
+
+
+function deleteOneTask(){
+
+}
+// when user delete a task
+let deleteButtonObjList = document.querySelectorAll("tasks_list_delete_button");
+if (deleteButtonObjList != null){
+  for (let i = 0; i < deleteButtonObjList.length; i++){
+    deleteButtonObjList[i].addEventListener("click", deleteOneTask);
+  }
+}
