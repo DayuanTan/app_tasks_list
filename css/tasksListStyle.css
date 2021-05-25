@@ -1,5 +1,5 @@
 
-/* for tasks_list part */
+/* for tasksList part */
 
 .tasks_list {
     font-family: sans-serif;
@@ -15,7 +15,7 @@
 .task_nofound_prompt {
     text-align: center;
     font-size: 20px;
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 .tasks_list_form {
@@ -27,17 +27,7 @@
     opacity: 0.6;
 }
 
-.tasks_list_input {
-    width: 80%;
-    padding: 10px;
-    border-radius: 4px;
-    border: 3px solid orange;
-    display: block;
-    margin:auto;
-    margin-bottom: 20px;
-}
-
-.tasks_list_items_display {
+.tasks_list_items_display{
     width: 60%;
     margin:auto;
     text-align: left;
@@ -52,27 +42,42 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-}
+  }
 
-.tasks_list_item span {
+.tasks_list_item_span_unchecked {
     flex-grow: 1;
-    margin-left: 0px;
+    margin-left: 10px;
     margin-right: 10px;
     font-size: 22px;
 }
-.done span {
+
+.tasks_list_item_span_checked {
+    flex-grow: 1;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 22px;
     text-decoration: line-through;
+    opacity: 0.6;
 }
 
-.tasks_list_delete svg {
+.delete_task_button svg {
     width: 14px;
     height: 14px;
     pointer-events: none;
 }
-.tasks_list_delete {
+.delete_task_button {
     border: none;
     background-color: transparent;
     outline: none;
     cursor: pointer;
-}
+  }
 
+.tasks_list_input {
+    width: 80%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 3px solid orange;
+    display: block;
+    margin:auto;
+    margin-bottom: 20px;
+  }
