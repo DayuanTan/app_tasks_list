@@ -6,7 +6,7 @@ import Task from './Task.js';
 
 // for drag and drop to order tasks, (https://github.com/SortableJS/Sortable)
 // Core SortableJS (without default plugins)
-import Sortable from '../node_modules/sortablejs/modular/sortable.core.esm.js';
+import Sortable from '../useful_node_modules/sortablejs/modular/sortable.core.esm.js';
 
 
 
@@ -54,6 +54,53 @@ function getExistedTasksFromLS(){
   return allTasksList;
 }
 
+
+function updateTasksListOrder(oldIndex, newIndex){
+  // step 1 read from DOM localStorage
+  let allTasksList = getExistedTasksFromLS();
+  // step 2 get the selected item
+  let selectedDragItem;
+  let counterForOrder = 0;
+  allTasksList.forEach(
+    (onetask) => {
+      if (counterForOrder === Number(oldIndex)){
+        selectedDragItem = new Task(onetask.taskText, onetask.taskID, onetask.checked, onetask.order, onetask.date);
+      }
+      counterForOrder ++;
+    }
+  )
+  console.log("selectedDragItem: ", selectedDragItem);
+  
+  // step 3: create a new taskslist and push reordered into it
+  let newAllTasksListArray = [];
+  console.log("allTasksList before reorder: ", allTasksList);
+  if (allTasksList != null){
+    counterForOrder = 0;
+    for (let i = 0; i < allTasksList.length;  i++){
+      if (counterForOrder === Number(oldIndex)){
+        console.log("find the selected! counterForOrder: ", counterForOrder);
+        counterForOrder ++;
+        continue;
+      }else if (counterForOrder === Number(newIndex)){
+        console.log("it's the turn of newIndex! counterForOrder: ", counterForOrder);
+        selectedDragItem.order = Number(newIndex);
+        newAllTasksListArray.push(selectedDragItem);
+        counterForOrder ++;
+      }
+      allTasksList[i].order = counterForOrder;
+      counterForOrder ++;
+      newAllTasksListArray.push(allTasksList[i]);
+      console.log("push other unchange item! counterForOrder: ", counterForOrder);
+      console.log("allTasksList[i]: ", allTasksList[i]);
+    }
+  }
+  console.log("newAllTasksListArray: ", newAllTasksListArray);
+
+  // setp 4: replace LS and display again
+  window.localStorage.setItem('tasksList', JSON.stringify(newAllTasksListArray));
+  renderTasksList();
+}
+
 function renderTasksList(){
   clearDisplayedTasksItems();
   // step 1 read from DOM localStorage
@@ -99,6 +146,7 @@ function renderTasksList(){
 
         console.log("element's old index within old parent: ", evt.oldIndex);
         console.log("element's new index within new parent: ", evt.newIndex);
+        updateTasksListOrder(evt.oldIndex, evt.newIndex);
       },
     });
 }
@@ -154,7 +202,7 @@ document.getElementById("tasks_list_form").addEventListener("submit", event => {
 });
 
 function clickOneTaskUpdateTasksList(isDeleteOneTask, taskIdClickedOn){
-  //read from LS - delete - write back into LS - render again
+  //read from LS - delete or check/uncheck - write back into LS - render again
   let myStorage = window.localStorage;
 
   let allTasksList = getExistedTasksFromLS();
