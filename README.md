@@ -29,4 +29,4 @@ To check out what it look like: https://dayuantan.github.io/app_tasks_list/
 
 [Class Task](https://dayuantan.github.io/app_tasks_list/jsdoc/Task/module.exports.html)
 
-[Functions](https://dayuantan.github.io/app_tasks_list/jsdoc/tasksListScript/index.html)
+[Functions](https://dayuantan.github.io/app_tasks_list/jsdoc/tasksListScript/global.html)
