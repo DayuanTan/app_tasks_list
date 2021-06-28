@@ -24,3 +24,9 @@ To check out what it look like: https://dayuantan.github.io/app_tasks_list/
 7. User can modify the date of each task by modifying the date directly or selecting from the date-selecting panel.
 
 ![](img/ScreenShot.png)
+
+##  [JS Doc](jsdoc/)
+
+[Class Task](https://dayuantan.github.io/app_tasks_list/jsdoc/Task/module.exports.html)
+
+[Functions](https://dayuantan.github.io/app_tasks_list/jsdoc/tasksListScript/index.html)
