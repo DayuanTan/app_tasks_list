@@ -9,8 +9,10 @@ import Task from './Task.js';
 import Sortable from '../useful_node_modules/sortablejs/modular/sortable.core.esm.js';
 
 
-
-function clearDisplayedTasksItems(){
+/** 
+* Function to clear current displayed tasks items. It will be called when updating the display is needed.
+*/
+export function clearDisplayedTasksItems(){
   //delete old displayed tasks items
   let tasksListDisplayTag = document.querySelectorAll(".tasks_list_item");
   tasksListDisplayTag.forEach(element => {
@@ -25,44 +27,79 @@ function clearDisplayedTasksItems(){
   }
 }
 
+/** 
+* This fucntion adds listenors to each task item.  
+* It will be called when usr change the date in tasks list item.
+*/
+function listenOnAndupdateTaskItemDate(){
+  const allTaskItems = document.querySelectorAll(".tasks_list_date_in_item_form");
+  for (let i = 0; i < allTaskItems.length; i++) {
+    allTaskItems[i].addEventListener("input", event => {
+      event.preventDefault();
+      //get new usr date input
+      const wantedItemId = "tasks_list_date_in_item"+i;
+      console.log("wantedItemId: ", wantedItemId);
+      const newUsrDateInput = document.getElementById(wantedItemId);
+      console.log("newUsrDateInput: ", newUsrDateInput);
+      const newUsrDaTeInputValue = newUsrDateInput.value;
+      console.log("newUsrDaTeInputValue: ", newUsrDaTeInputValue);
+      //update taskslist
+      clickOneTaskUpdateTasksList("changedate", i, newUsrDaTeInputValue);
+    });
+  }
+}
 
-function renderOneTaskItem(oneTask){
-    const tasksListModuleForm =  document.getElementById("tasks_list_items_display");//locate where to add
-    const tasktext = oneTask.taskText;
-    const isChecked = Number(oneTask.checked) === 1 ? "checked" : "unchecked";
-    let spanCheckedOrCheckedStyle;
-    if (Number(oneTask.checked) === 1){
-      if (Number(oneTask.important) === 1){
-        spanCheckedOrCheckedStyle = "tasks_list_item_span_checked_important";
-      }else{
-        spanCheckedOrCheckedStyle = "tasks_list_item_span_checked";
-      }
+/** 
+* This function generate the html content of one task item.
+* @param {json} oneTask is a json for one task item.
+*/
+export function renderOneTaskItem(oneTask){
+  const tasksListModuleForm =  document.getElementById("tasks_list_items_display");//locate where to add
+  const tasktext = oneTask.taskText;
+  const isChecked = Number(oneTask.checked) === 1 ? "checked" : "unchecked";
+  let spanCheckedOrCheckedStyle;
+  if (Number(oneTask.checked) === 1){
+    if (Number(oneTask.important) === 1){
+      spanCheckedOrCheckedStyle = "tasks_list_item_span_checked_important";
     }else{
-      if (Number(oneTask.important) === 1){
-        spanCheckedOrCheckedStyle = "tasks_list_item_span_unchecked_important";
-      }else{
-        spanCheckedOrCheckedStyle = "tasks_list_item_span_unchecked";
-      }
+      spanCheckedOrCheckedStyle = "tasks_list_item_span_checked";
     }
-    const taskID = oneTask.taskID;
+  }else{
+    if (Number(oneTask.important) === 1){
+      spanCheckedOrCheckedStyle = "tasks_list_item_span_unchecked_important";
+    }else{
+      spanCheckedOrCheckedStyle = "tasks_list_item_span_unchecked";
+    }
+  }
+  const taskID = oneTask.taskID;
+  const taskDate = oneTask.date;
+  console.log("taskID: ", taskID, "taskDate: ", taskDate)
+  const tasks_list_date_in_item_form = "tasks_list_date_in_item_form"+taskID;
+  const tasks_list_date_in_item = "tasks_list_date_in_item"+taskID;
 
-    const oneTaskItem = document.createElement("li");// create new element
-    oneTaskItem.setAttribute('class', `tasks_list_item`);
-    oneTaskItem.innerHTML = `
-        <input id=${taskID} type="checkbox" ${isChecked}/>
-        <span class=${spanCheckedOrCheckedStyle} >${tasktext}</span>
-        <button class="important_button">
-          <svg><use href="#important-mark"></use></svg>
-        </button>
-        <button class="delete_task_button">
-          <svg><use href="#delete-icon"></use></svg>
-        </button>
-    `;
-    tasksListModuleForm.appendChild(oneTaskItem);//inject
+  const oneTaskItem = document.createElement("li");// create new element
+  oneTaskItem.setAttribute('class', `tasks_list_item`);
+  oneTaskItem.innerHTML = `
+      <input class="tasks_list_checkornot" id=${taskID} type="checkbox" ${isChecked}/>
+      <span class=${spanCheckedOrCheckedStyle} >${tasktext}</span>
+      <form class="tasks_list_date_in_item_form" id=${tasks_list_date_in_item_form}>
+        <input class="tasks_list_date_in_item" id=${tasks_list_date_in_item} type="date" value=${taskDate}>
+      </form>
+      <button class="important_button">
+        <svg><use href="#important-mark"></use></svg>
+      </button>
+      <button class="delete_task_button">
+        <svg><use href="#delete-icon"></use></svg>
+      </button>
+  `;
+  tasksListModuleForm.appendChild(oneTaskItem);//inject
 }
 
 
-
+/** 
+* This function read from localStorage to get all task items. 
+* @returns A json of all task items
+*/
 function getExistedTasksFromLS(){
   let myStorage = window.localStorage;
   let allTasksList =  JSON.parse(myStorage.getItem("tasksList"));
@@ -71,6 +108,11 @@ function getExistedTasksFromLS(){
 }
 
 
+/** 
+* This function updates the order of each task item in the tasks list. User drag and drop will drag one task item from its old place/order to its new place/order.
+* @param {Number} oldIndex is the index of the selected item's old order.
+* @param {Number} newIndex is the index of the selected item's new order.
+*/
 function updateTasksListOrder(oldIndex, newIndex){
   // step 1 read from DOM localStorage
   let allTasksList = getExistedTasksFromLS();
@@ -122,6 +164,9 @@ function updateTasksListOrder(oldIndex, newIndex){
   renderTasksList();
 }
 
+/**
+* This function render the html content of the whole tasks list.
+*/
 function renderTasksList(){
   clearDisplayedTasksItems();
   // step 1 read from DOM localStorage
@@ -143,6 +188,7 @@ function renderTasksList(){
         renderOneTaskItem(onetask);
       }
     )
+    listenOnAndupdateTaskItemDate();
   }
   
   
@@ -174,19 +220,41 @@ function renderTasksList(){
     });
 }
 
-// starts here
-document.addEventListener('DOMContentLoaded', renderTasksList);
-
-function getTodayDate(){
+/** 
+* This function get the current date in yyyy-mm-dd format. It is used for tasks list default date display only.
+* @returns The current date in yyyy-mm-dd format.
+*/
+function getDefaultDate(){
   let today = new Date();
   let dd = today.getDate();
   let mm =  today.getMonth()+1;
   let yyyy = today.getFullYear();
+  if (mm < 10) {
+    mm = "0" + mm;
+  } 
+  if (dd < 10) {
+    dd = "0" + dd;
+  } 
 
-  today = mm +'/' + dd + '/' + yyyy;
-  console.log("today: ", today);
+  today = yyyy + '-' + mm +'-' + dd;
+  console.log("default date only: ", today);
   return today;
 }
+
+
+/** 
+* This function updates the date of user's created task item.
+*/
+function  renderTasksListAndUpdateTasksListDefaultDate(){
+  renderTasksList();
+  //update tasks list defulat date
+  document.getElementById("tasks_list_date_input").setAttribute("value",getDefaultDate());
+}
+
+// starts here
+document.addEventListener('DOMContentLoaded', renderTasksListAndUpdateTasksListDefaultDate);
+
+
 
 // when user create a new task
 document.getElementById("tasks_list_form").addEventListener("submit", event => {
@@ -205,8 +273,12 @@ document.getElementById("tasks_list_form").addEventListener("submit", event => {
     usrInput.value = "";
     usrInput.focus();
   }
+  //get usr date input
+  const usrDateInput = document.getElementById("tasks_list_date_input");
+  const usrDaTeInputValue = usrDateInput.value.trim();
+  console.log("usrDaTeInputValue: ", usrDaTeInputValue);
   // create a new task 
-  let aNewTask = new Task(usrInputText, tasksLocalStorageCounter, 0, 0, 0, getTodayDate());
+  let aNewTask = new Task(usrInputText, tasksLocalStorageCounter, 0, 0, 0, usrDaTeInputValue);
   console.log("aNewTask: ", aNewTask)
   //  combine existing tasks and the created task into an array
   let allTasksList = getExistedTasksFromLS();
@@ -224,7 +296,13 @@ document.getElementById("tasks_list_form").addEventListener("submit", event => {
 
 });
 
-function clickOneTaskUpdateTasksList(features, taskIdClickedOn){
+/**
+* This function executes corresponding actions and update the taskslist when user operate on one task item.
+* @param {String} features. Which operation user did. It is "delete" when user delete one task item. It is "checkuncheck" when user check one task item or uncheck it. It is 'changedate" when user change the date of one task item. It is "important" when user mark one task item as important or cancel the marking.
+* @param {Number} taskIdClickedOn. The id of the task item which user operate on.
+* @param {String} usrNewDate. It is the new date user select if user change  the date of one task item. It is empty if user do other oprations.
+*/
+function clickOneTaskUpdateTasksList(features, taskIdClickedOn, usrNewDate){
   //read from LS - delete or check/uncheck - write back into LS - render again
   let myStorage = window.localStorage;
 
@@ -244,6 +322,15 @@ function clickOneTaskUpdateTasksList(features, taskIdClickedOn){
         }else{
           let checkedOrNot = Number(allTasksList[i].checked) === 1 ? 0 : 1;
           let aNewTask = new Task(allTasksList[i].taskText, allTasksList[i].taskID, checkedOrNot, allTasksList[i].important, allTasksList[i].order, allTasksList[i].date);
+          newAllTasksListArray.push(aNewTask);
+        }
+      }
+    }else if (features == "changedate"){ // update the taskslist when change date
+      for (let i = 0; i < allTasksList.length;  i++){
+        if (Number(allTasksList[i].taskID) !== taskIdClickedOn){
+          newAllTasksListArray.push(allTasksList[i]);
+        }else{          
+          let aNewTask = new Task(allTasksList[i].taskText, allTasksList[i].taskID, allTasksList[i].checked, allTasksList[i].important, allTasksList[i].order, usrNewDate);
           newAllTasksListArray.push(aNewTask);
         }
       }
@@ -274,28 +361,31 @@ function clickOneTaskUpdateTasksList(features, taskIdClickedOn){
   renderTasksList();
 }
 
-
+/**
+* This function analyses which operation user did and calls corresponding functions.
+* @param {Event} event. The HTML event user did.
+*/
 function clickOneTask(event){
   console.log("clickOneTask: ", event.target);
   console.log("clickOneTask on Tag: ", event.target.tagName);
   console.log("clickOneTask class name: ", event.target.className);
-  let taskIdClickedOn = Number(event.target.parentElement.querySelector("input").id);
-  console.log("taskIdClickedOn: ", taskIdClickedOn);
-  if (event.target.tagName === "BUTTON" && event.target.className === "delete_task_button"){//delete
-    console.log("taskIdToBeDeleted: ", taskIdClickedOn);
-    clickOneTaskUpdateTasksList("delete", taskIdClickedOn);
-  }else if (event.target.tagName === "INPUT") {//check or uncheck
-    console.log("taskIdToBeCheckedOrUnChecked: ", taskIdClickedOn);
-    clickOneTaskUpdateTasksList("checkuncheck", taskIdClickedOn);
-  }else if (event.target.tagName === "BUTTON" && event.target.className === "important_button"){//important
-    console.log("taskIdToBeDeleted: ", taskIdClickedOn);
-    console.log("get span: ", event.target.parentElement.children[1]);
-    clickOneTaskUpdateTasksList("important", taskIdClickedOn);
+  if (event.target.className !== "tasks_list_date_in_item" ){
+    let taskIdClickedOn = Number(event.target.parentElement.querySelector(".tasks_list_checkornot").id);
+    
+    if (event.target.tagName === "BUTTON" && event.target.className === "delete_task_button"){//delete
+      console.log("taskIdToBeDeleted: ", taskIdClickedOn);
+      clickOneTaskUpdateTasksList("delete", taskIdClickedOn, "");
+    }else if (event.target.tagName === "INPUT" && event.target.className === "tasks_list_checkornot") {//check or uncheck
+      console.log("taskIdToBeCheckedOrUnChecked: ", taskIdClickedOn);
+      clickOneTaskUpdateTasksList("checkuncheck", taskIdClickedOn, "");
+    }else if (event.target.tagName === "BUTTON" && event.target.className === "important_button"){//important
+      console.log("taskIdToBeDeleted: ", taskIdClickedOn);
+      console.log("get span: ", event.target.parentElement.children[1]);
+      clickOneTaskUpdateTasksList("important", taskIdClickedOn, "");
+    }
   }
 }
 
-// when usr delete a task
+// when usr click a task item (check/uncheck, change date, mark important, delete)
 let tasksListUlTag = document.getElementById("tasks_list_items_display");
 tasksListUlTag.addEventListener('click', event => clickOneTask(event));
-
-
