@@ -26,10 +26,15 @@
     
     <!-- tasks list part begin-->
     <div id="tasks_list" class="tasks_list">
-      <div id="tasks_list_title" class="tasks_list_title">Tasks List</div>
-      <form id="tasks_list_form" class="tasks_list_form">
-        <input autofocus id="tasks_list_input" type="text" class="tasks_list_input"  aria-label="Enter a new task" placeholder="Enter a new task ..." >  
-      </form> 
+      <div id="tasks_list_title" class="tasks_list_title">Tasks List</div>      
+      <form class="tasks_list_form" id="tasks_list_form" name="tasks_list_form">
+        <input autofocus aria-label="Enter a new task"
+          class="tasks_list_input"
+          id="tasks_list_input"
+          placeholder="Enter a new task ..."
+          type="text">
+        <input class="tasks_list_date_input" id="tasks_list_date_input" type="date" value="">
+      </form>
       <ul id="tasks_list_items_display" class="tasks_list_items_display">
       </ul>  
     </div>

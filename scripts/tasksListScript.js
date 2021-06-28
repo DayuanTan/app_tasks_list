@@ -12,7 +12,7 @@ import Sortable from '../useful_node_modules/sortablejs/modular/sortable.core.es
 /** 
 * Function to clear current displayed tasks items. It will be called when updating the display is needed.
 */
-export function clearDisplayedTasksItems(){
+function clearDisplayedTasksItems(){
   //delete old displayed tasks items
   let tasksListDisplayTag = document.querySelectorAll(".tasks_list_item");
   tasksListDisplayTag.forEach(element => {
@@ -53,7 +53,7 @@ function listenOnAndupdateTaskItemDate(){
 * This function generate the html content of one task item.
 * @param {json} oneTask is a json for one task item.
 */
-export function renderOneTaskItem(oneTask){
+function renderOneTaskItem(oneTask){
   const tasksListModuleForm =  document.getElementById("tasks_list_items_display");//locate where to add
   const tasktext = oneTask.taskText;
   const isChecked = Number(oneTask.checked) === 1 ? "checked" : "unchecked";
