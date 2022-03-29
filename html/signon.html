@@ -1,0 +1,68 @@
+<html>
+
+<head>
+    
+</head>
+
+<body>
+    Example 1: (Click Submit button to show example 1 data)
+    <form id="myForm" name="myForm">
+        <div>
+          <label for="username">Enter name:</label>
+          <input type="text" id="username" name="username">
+        </div>
+        <div>
+          <label for="useracc">Enter account number:</label>
+          <input type="text" id="useracc" name="useracc">
+        </div>
+        <div>
+          <label for="userfile">Upload file:</label>
+          <input type="file" id="userfile" name="userfile">
+        </div>
+        <input type="submit" value="Submit!">
+    </form>
+
+    Example 2: (Click Create button to show example 2 data)
+    <p>(Note: Only successful form controls are included in a FormData object, i.e. those with a name, not disabled and checked (radio buttons and checkboxes) or selected (one or more options within a select).)
+    </p>
+    <table>
+        <form id="signonform">
+            <tr>
+                <td>
+                    First Name:
+                </td>
+                <td>
+                    <input type="text" id="firstname" name="firstname"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Lastt Name:
+                </td>
+                <td>
+                    <input type="text" id="lastname" /> <!--This cannot be got by FormData() bc missing "name"-->
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Passworrd:
+                </td>
+                <td>
+                    <input type="password" id="password" name="pwd"/>
+                </td>
+            </tr>
+            <tr>
+            </tr>
+                <td>
+                    <button type="submit">Create Account</button>
+                </td>
+            </tr>
+        </form>
+    </table>
+
+    
+
+
+    <script src="../scripts/signon.js"></script>
+</body>
+</html>
