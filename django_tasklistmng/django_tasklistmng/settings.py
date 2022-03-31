@@ -20,7 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o*dyv5($c42og4f&r7fbpdqlidlw_#+ov%f9lexdq87vnj)pi7'
+SECRET_KEY = 'django-insecure-&x^li3##@yjxif31*%w_m7#njb18a*yqi794y2h*=a+-f26pr)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -31,13 +31,13 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'apptasklistmng.apps.ApptasklistmngConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_tasklistmng',
 ]
 
 MIDDLEWARE = [
@@ -76,8 +76,11 @@ WSGI_APPLICATION = 'django_tasklistmng.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': BASE_DIR / 'db.sqlite3',
+        'OPTIONS': {
+            'read_default_file': str(BASE_DIR) + "/my.cnf",
+        },
     }
 }
 
@@ -106,7 +109,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'  #'UTC'
 
 USE_I18N = True
 
