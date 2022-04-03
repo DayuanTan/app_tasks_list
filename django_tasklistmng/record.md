@@ -1,18 +1,18 @@
 # Records
 
-proj_tasks_list(main✗) ]$ django-admin startproject django_tasklistmng
+proj_tasks_list(main✗) ]$ ```django-admin startproject django_tasklistmng```
 
-proj_tasks_list(main✗) ]$ source venv/bin/activate
+proj_tasks_list(main✗) ]$ ```source venv/bin/activate```
 (vene)
 
 
 
 (vene) proj_tasks_list(main✗) ]
- $ cd django_tasklistmng
+ $ ```cd django_tasklistmng```
 
 
 (vene) proj_tasks_list/django_tasklistmng(main✗) ]
- $  python manage.py runserver
+ $  ```python manage.py runserver```
 ```
 Watching for file changes with StatReloader
 Performing system checks...
@@ -29,27 +29,27 @@ Quit the server with CONTROL-C.
 
 
 (vene) proj_tasks_list/django_tasklistmng(main✗) ]
- $ python manage.py startapp apptasklistmng
+ $ ```python manage.py startapp apptasklistmng```
 
 
 
-change proj_tasks_list/django_tasklistmng/apptasklistmng/views.py
+**change** proj_tasks_list/django_tasklistmng/apptasklistmng/views.py
 
-create proj_tasks_list/django_tasklistmng/apptasklistmng/urls.py
+**create** proj_tasks_list/django_tasklistmng/apptasklistmng/urls.py
 
-change proj_tasks_list/django_tasklistmng/django_tasklistmng/urls.py
+**change** proj_tasks_list/django_tasklistmng/django_tasklistmng/urls.py
 
-change proj_tasks_list/django_tasklistmng/django_tasklistmng/settings.py DATABASES TIME_ZONE
+**change** proj_tasks_list/django_tasklistmng/django_tasklistmng/settings.py DATABASES TIME_ZONE
 
-create proj_tasks_list/django_tasklistmng/my.cnf (same level as manage.py)
+**create** proj_tasks_list/django_tasklistmng/my.cnf (same level as manage.py)
 
 
 
-Integrate existing database (apptasklistmng) into django:
+**Integrate** existing database (apptasklistmng) into django:
   
 
 (vene) proj_tasks_list/django_tasklistmng/databasesetup(main✗) ]
- $ mysql -u root < setup.sql
+ $ ```mysql -u root < setup.sql```
 Tables_in_apptasklistmng
 Tasks
 UserChangeRecords
@@ -60,15 +60,15 @@ userno	userfirstname	usermiddlename	userlastname	usernickname	useremail	usergend
 
 
 (vene) proj_tasks_list/django_tasklistmng(main✗) ]
- $ python manage.py inspectdb > apptasklistmng/models.py
+ $ ```python manage.py inspectdb > apptasklistmng/models.py```
 
-Change apptasklistmng/models.py by hand. # managed = False. (The FK default reference to PK.)
+**Change** apptasklistmng/models.py by hand. # managed = False. (The FK default reference to PK.)
 
-change proj_tasks_list/django_tasklistmng/django_tasklistmng/settings.py INSTALLED_APPS
+**change** proj_tasks_list/django_tasklistmng/django_tasklistmng/settings.py INSTALLED_APPS
 
 
 (vene) proj_tasks_list/django_tasklistmng(main✗) ]
- $python manage.py migrate
+ $```python manage.py migrate```
 ```
 Operations to perform:
   Apply all migrations: admin, auth, contenttypes, sessions
@@ -93,7 +93,7 @@ Running migrations:
   Applying sessions.0001_initial... OK
 ```
 
-(vene) $ python manage.py makemigrations
+(vene) $ ```python manage.py makemigrations```
 Migrations for 'apptasklistmng':
   apptasklistmng/migrations/0001_initial.py
     - Create model Users
@@ -101,7 +101,7 @@ Migrations for 'apptasklistmng':
     - Create model Userchangerecords
     - Create model Tasks
 
-$ python manage.py migrate
+$ ```python manage.py migrate```
 Operations to perform:
   Apply all migrations: admin, apptasklistmng, auth, contenttypes, sessions
 Running migrations:
@@ -111,14 +111,15 @@ Running migrations:
     ...
 django.db.utils.OperationalError: (1050, "Table 'users' already exists")
 
- $ python manage.py migrate --fake
+ $ ```python manage.py migrate --fake```
 Operations to perform:
   Apply all migrations: admin, apptasklistmng, auth, contenttypes, sessions
 Running migrations:
   Applying apptasklistmng.0001_initial... FAKED
 
-check
-(vene) proj_tasks_list/django_tasklistmng(main✗) ]$ python manage.py shell
+**check**
+
+(vene) proj_tasks_list/django_tasklistmng(main✗) ]$ ```python manage.py shell```
 Python 3.7.2 (v3.7.2:9a3ffc0492, Dec 24 2018, 02:44:43)
 [Clang 6.0 (clang-600.0.57)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
@@ -134,7 +135,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 
 proj_tasks_list/django_tasklistmng(main✗) ]
- $ python manage.py createsuperuser
+ $ ```python manage.py createsuperuser```
 Username (leave blank to use 'dyt'): admin
 Email address: admin@xample.com
 Password:admin
@@ -148,25 +149,27 @@ Superuser created successfully.
 
 
 proj_tasks_list/django_tasklistmng(main✗) ]
-python manage.py runserver
+$ ```python manage.py runserver```
 
-then open browser go to http://127.0.0.1:8000/admin/ and you can login  in with admin/admin
+then **open** browser go to http://127.0.0.1:8000/admin/ and you can login  in with admin/admin
 
 # Add my tasklistmng
 
-create django_tasklistmng/apptasklistmng/templates/apptasklistmng/tasklist.html
+**create** django_tasklistmng/apptasklistmng/templates/apptasklistmng/tasklist.html
 
-change django_tasklistmng/apptasklistmng/views.py to point to it
+**change** django_tasklistmng/apptasklistmng/views.py to point to it
 ```
 def index(request):
     return render(request, 'apptasklistmng/tasklist.html')
 ```
 
-change  django_tasklistmng/apptasklistmng/urls.py
+**change**  django_tasklistmng/apptasklistmng/urls.py
 ```
 app_name = 'tasklistmng'
 ```
 
-add img/css/js to static/apptasklistmng directory
+**add** img/css/js to static/apptasklistmng directory
 
-correct their relative path.
+**correct** their relative path.
+
+Django works with tasklist now  (localstorage version, no database  connect).
