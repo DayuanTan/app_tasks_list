@@ -6,4 +6,4 @@ from django.http import HttpResponse
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the app tasklist index.")
+    return render(request, 'apptasklistmng/tasklist.html')

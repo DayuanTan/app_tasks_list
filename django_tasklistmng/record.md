@@ -152,4 +152,21 @@ python manage.py runserver
 
 then open browser go to http://127.0.0.1:8000/admin/ and you can login  in with admin/admin
 
+# Add my tasklistmng
 
+create django_tasklistmng/apptasklistmng/templates/apptasklistmng/tasklist.html
+
+change django_tasklistmng/apptasklistmng/views.py to point to it
+```
+def index(request):
+    return render(request, 'apptasklistmng/tasklist.html')
+```
+
+change  django_tasklistmng/apptasklistmng/urls.py
+```
+app_name = 'tasklistmng'
+```
+
+add img/css/js to static/apptasklistmng directory
+
+correct their relative path.
