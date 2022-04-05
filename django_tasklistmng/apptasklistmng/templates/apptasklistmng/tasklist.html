@@ -13,6 +13,7 @@
   <!-- tasks list css -->
   {% load static %}
   <link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/tasksListStyle.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/footer.css' %}">
   <link rel="icon" href="{% static 'apptasklistmng/img/d.ico' %}"/>
 
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
@@ -21,16 +22,16 @@
   <!-- tasks list Script -->
   <script src="{% static 'apptasklistmng/js/tasksListScript.js' %}" type="module" ></script>
   <script src="{% static 'apptasklistmng/js/useful_node_modules/sortablejs/modular/sortable.core.esm.js' %}" type="module"></script>
-  
+  <script src="{% static 'apptasklistmng/js/components/header.js' %}" type="text/javascript" defer></script>
+  <script src="{% static 'apptasklistmng/js/components/footer.js' %}" type="text/javascript" defer></script>
   
 
 
 </head>
 
 <body>
-  <header>
-    <h1></h1>
-  </header>
+  
+  <header-component></header-component> 
 
 
   <main>
@@ -61,6 +62,8 @@
       <symbol id="delete-icon" viewBox="0 0 448 448"><path d="m224 0c-123.710938 0-224 100.289062-224 224s100.289062 224 224 224 224-100.289062 224-224c-.132812-123.65625-100.34375-223.867188-224-224zm124.449219 325.824219c4.15625 4.015625 5.828125 9.964843 4.363281 15.558593s-5.835938 9.964844-11.429688 11.429688-11.542968-.207031-15.558593-4.363281l-101.824219-101.824219-101.824219 101.824219c-6.277343 6.0625-16.257812 5.976562-22.429687-.195313s-6.257813-16.152344-.195313-22.429687l101.824219-101.824219-101.824219-101.824219c-4.15625-4.015625-5.828125-9.964843-4.363281-15.558593s5.835938-9.964844 11.429688-11.429688 11.542968.207031 15.558593 4.363281l101.824219 101.824219 101.824219-101.824219c6.277343-6.0625 16.257812-5.976562 22.429687.195313s6.257813 16.152344.195313 22.429687l-101.824219 101.824219zm0 0" fill="orange"/></symbol>
     </defs>
   </svg>  
+
+  <footer-component></footer-component>
 
 
 </body>

@@ -1,5 +1,7 @@
 # Records
 
+## Django init
+
 proj_tasks_list(main✗) ]$ ```django-admin startproject django_tasklistmng```
 
 proj_tasks_list(main✗) ]$ ```source venv/bin/activate```
@@ -39,17 +41,22 @@ Quit the server with CONTROL-C.
 
 **change** proj_tasks_list/django_tasklistmng/django_tasklistmng/urls.py
 
+
+## Database
+
+### Connect 
 **change** proj_tasks_list/django_tasklistmng/django_tasklistmng/settings.py DATABASES TIME_ZONE
 
 **create** proj_tasks_list/django_tasklistmng/my.cnf (same level as manage.py)
 
 
 
-**Integrate** existing database (apptasklistmng) into django:
+### **Integrate** existing database (apptasklistmng) into django:
   
 
 (vene) proj_tasks_list/django_tasklistmng/databasesetup(main✗) ]
  $ ```mysql -u root < setup.sql```
+``` 
 Tables_in_apptasklistmng
 Tasks
 UserChangeRecords
@@ -57,7 +64,7 @@ UserLoginActivityRecords
 Users
 userno	userfirstname	usermiddlename	userlastname	usernickname	useremail	usergender	userpwd	userdob	usernote1	usernote2
 1	testfirstname	testmiddlename	testlastname	testnickname	testemail	testmale	testpwd	2022-03-30	1	testnote2
-
+```
 
 (vene) proj_tasks_list/django_tasklistmng(main✗) ]
  $ ```python manage.py inspectdb > apptasklistmng/models.py```
@@ -94,14 +101,17 @@ Running migrations:
 ```
 
 (vene) $ ```python manage.py makemigrations```
+```
 Migrations for 'apptasklistmng':
   apptasklistmng/migrations/0001_initial.py
     - Create model Users
     - Create model Userloginactivityrecords
     - Create model Userchangerecords
     - Create model Tasks
+```
 
 $ ```python manage.py migrate```
+```
 Operations to perform:
   Apply all migrations: admin, apptasklistmng, auth, contenttypes, sessions
 Running migrations:
@@ -110,12 +120,15 @@ Running migrations:
     return self.cursor.execute(sql)
     ...
 django.db.utils.OperationalError: (1050, "Table 'users' already exists")
+```
 
  $ ```python manage.py migrate --fake```
+```
 Operations to perform:
   Apply all migrations: admin, apptasklistmng, auth, contenttypes, sessions
 Running migrations:
   Applying apptasklistmng.0001_initial... FAKED
+```
 
 **check**
 
@@ -153,7 +166,8 @@ $ ```python manage.py runserver```
 
 then **open** browser go to http://127.0.0.1:8000/admin/ and you can login  in with admin/admin
 
-# Add my tasklistmng
+
+# Add my app tasklistmng
 
 **create** django_tasklistmng/apptasklistmng/templates/apptasklistmng/tasklist.html
 

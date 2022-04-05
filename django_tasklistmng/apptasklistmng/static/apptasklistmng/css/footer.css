@@ -1,0 +1,31 @@
+header {
+    height: 40px;
+    width: 100%;
+    text-align: right;
+    padding-right: 18%;
+    color: gray;
+    background-color:#e9ecef;
+}
+.header_text {
+    padding-top: 10px;
+} 
+
+
+footer {
+    width: 100%;
+    position:bottom;
+    bottom:0;
+    left:0;
+    text-align: center;
+    color: gray;
+    /* color: gainsboro; */
+    background-color:#e9ecef;
+    margin: 0 0 0;
+}
+footer p {
+    margin-bottom: 0;
+}
+
+footer a {
+    opacity: 0.5;
+}

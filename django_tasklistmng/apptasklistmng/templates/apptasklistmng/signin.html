@@ -1,0 +1,55 @@
+<html>
+<head>
+    <title>Sign In</title>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+  
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/tasksListStyle.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/footer.css' %}">
+    <link rel="icon" href="{% static 'apptasklistmng/img/d.ico' %}"/>
+
+    <script src="{% static 'apptasklistmng/js/components/header.js' %}" type="text/javascript" defer></script>
+    <script src="{% static 'apptasklistmng/js/components/footer.js' %}" type="text/javascript" defer></script>
+
+</head>
+<body>
+
+<header-component></header-component> 
+   
+      
+
+<div id="tasks_list" class="tasks_list">
+    <div id="tasks_list_title" class="tasks_list_title">Sign In</div>   
+    <table>
+        <form class="contactme_form" id="signinform">  
+            <tr>
+                <td>
+                    Username:
+                </td>
+                <td><input type="text" id="username"  size="30" required></input>
+                </td>
+            </tr>
+            <br>
+            <tr>
+                <td>
+                    Password:
+                </td>
+                <td><input type="password" id="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*"  size="30" required></input>
+                </td>
+            </tr>
+            <tr>
+                <td><button type="submit">Sign in</button></td>
+            </tr>
+        </form>
+        <tr>
+            <td colspan="2"><p id="log"></p></td>
+        </tr>
+    </table>
+    <br><br>
+</div>
+
+<footer-component></footer-component>
+
+</body>
+</html>
