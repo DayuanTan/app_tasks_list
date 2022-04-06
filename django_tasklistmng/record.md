@@ -181,8 +181,10 @@ def index(request):
 
 **change**  django_tasklistmng/apptasklistmng/urls.py
 ```
-app_name = 'tasklistmng'
+app_name = 'apptasklistmng'
 ```
+
+Then it should recognize things like "app_name:view_name", "apptasklistmng:index"
 
 **add** img/css/js to static/apptasklistmng directory
 
@@ -196,3 +198,56 @@ Django works with tasklist now  (localstorage version, no database  connect).
 
 ## form submit
 
+**Add** *models ```forms.py```* for *submit form element in signin/on.html*. Use them to receive and parse submitted data via form in html.
+
+Like:
+```py
+class SignInForm(forms.Form):
+    usernickname = forms.CharField(label='Username', max_length=100)
+    userpwd = forms.CharField(label='Password', max_length=100)
+``` 
+
+**Note**: 
+- the *```variable name```* must be same as the "*name*" property of *input* element in html/*form* element.
+- Make sure the constraints are same among model forms.py, html, database.
+
+The "action" in form element is the destination. It should be a url match in urls.py and a view in views.py. 
+Like: 
+```py
+# html
+<form action="{% url 'apptasklistmng:signinprocess' %}" method="POST">  
+</form>
+
+# urls.py
+path('signinprocess/', views.signinprocess, name="signinprocess"),
+
+# views.py
+def signinprocess(request): 
+    if request.method == 'POST':
+        form = SignInForm(request.POST)
+        if form.is_valid():
+            form.cleaned_data
+            usernickname = form['usernickname'].value()
+            userpwd = form['userpwd'].value()
+            return render(request, 'apptasklistmng/userprofile.html', {"usernickname": usernickname, "userpwd": userpwd})
+    else:
+        form = SignInForm()
+        return HttpResponse("hello signin process don't use get ")
+```
+
+
+## url redirect  after form submission
+
+If Don't add it will be ugly like this: 
+- http://127.0.0.1:8000/tasklistmng/signinprocess/signin.html
+- http://127.0.0.1:8000/tasklistmng/signinprocess/signon.html
+- http://127.0.0.1:8000/tasklistmng/signinprocess/tasklist.html
+- http://127.0.0.1:8000/tasklistmng/signonprocess/signin.html
+- http://127.0.0.1:8000/tasklistmng/signonprocess/signon.html
+- http://127.0.0.1:8000/tasklistmng/signonprocess/tasklist.html
+
+**Add** more url pattern and redirect view. Like
+```py
+path('signin.html', views.signin, name='signin'),
+re_path(r'\w*/signin.html$', views.signinLongerUrl, name='signinLonger'),
+```
