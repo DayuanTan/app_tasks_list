@@ -210,6 +210,7 @@ class SignInForm(forms.Form):
 **Note**: 
 - the *```variable name```* must be same as the "*name*" property of *input* element in html/*form* element.
 - Make sure the constraints are same among model forms.py, html, database.
+- Model fields and Form fields are different. https://docs.djangoproject.com/en/4.0/ref/forms/fields/.
 
 The "action" in form element is the destination. It should be a url match in urls.py and a view in views.py. 
 Like: 
