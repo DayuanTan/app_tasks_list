@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/tasksListStyle.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/footer.css' %}">
     <link rel="icon" href="{% static 'apptasklistmng/img/d.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/signOnIn.css' %}">
+
 
     <script src="{% static 'apptasklistmng/js/components/header.js' %}" type="text/javascript" defer></script>
     <script src="{% static 'apptasklistmng/js/components/footer.js' %}" type="text/javascript" defer></script>
@@ -21,13 +23,14 @@
 
 <div id="tasks_list" class="tasks_list">
     <div id="tasks_list_title" class="tasks_list_title">Sign In</div>   
-    <table>
-        <form class="contactme_form" id="signinform">  
+    <table id="signintable" class="sigintable">
+        <form class="signinform" id="signinform" action="{% url 'apptasklistmng:signinprocess' %}" method="POST">  
+            {% csrf_token %} <!-- all POST forms that are targeted at internal URLs should use the {% csrf_token %} template tag. -->
             <tr>
-                <td>
+                <td style="width: 100px">
                     Username:
                 </td>
-                <td><input type="text" id="username"  size="30" required></input>
+                <td><input type="text" id="usernickname" name="usernickname"  size="30" required></input>
                 </td>
             </tr>
             <br>
@@ -35,11 +38,11 @@
                 <td>
                     Password:
                 </td>
-                <td><input type="password" id="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*"  size="30" required></input>
+                <td><input type="password" id="userpwd" name="userpwd" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*" size="30" minlength="8"  maxlength="32"  required></input>
                 </td>
             </tr>
             <tr>
-                <td><button type="submit">Sign in</button></td>
+                <td><input type="submit" value="Submit"></td>
             </tr>
         </form>
         <tr>

@@ -8,26 +8,28 @@
 from django.db import models
 
 
+
 class Users(models.Model):
     userno = models.AutoField(primary_key=True)
-    userfirstname = models.CharField(max_length=20)
-    usermiddlename = models.CharField(max_length=20, blank=True, null=True)
-    userlastname = models.CharField(max_length=20)
-    usernickname = models.CharField(unique=True, max_length=20)
-    useremail = models.CharField(max_length=30)
-    usergender = models.CharField(max_length=10)
-    userpwd = models.CharField(max_length=30)
+    userfirstname = models.CharField(max_length=100)
+    usermiddlename = models.CharField(max_length=100, blank=True, null=True)
+    userlastname = models.CharField(max_length=100)
+    usernickname = models.CharField(unique=True, max_length=100)
+    useremail = models.CharField(max_length=100)
+    usergender = models.CharField(max_length=20)
+    userpwd = models.CharField(max_length=100)
     userdob = models.DateField()
     usernote1 = models.IntegerField(blank=True, null=True)
-    usernote2 = models.CharField(max_length=30, blank=True, null=True)
+    usernote2 = models.CharField(max_length=300, blank=True, null=True)
 
     class Meta:
         # managed = False
         db_table = 'Users'
 
+
 class Tasks(models.Model):
     taskno = models.AutoField(primary_key=True)
-    taskcontext = models.CharField(max_length=100)
+    taskcontext = models.CharField(max_length=300)
     taskddl = models.DateField(blank=True, null=True)
     taskorder = models.IntegerField()
     taskimportant = models.IntegerField()
@@ -42,12 +44,12 @@ class Tasks(models.Model):
 class Userchangerecords(models.Model):
     chgno = models.AutoField(primary_key=True)
     chgtime = models.DateTimeField()
-    chgentry = models.CharField(max_length=30, blank=True, null=True)
+    chgentry = models.CharField(max_length=100, blank=True, null=True)
     chgbefore = models.CharField(max_length=100, blank=True, null=True)
     chgafter = models.CharField(max_length=100, blank=True, null=True)
-    chgpwd = models.CharField(max_length=30, blank=True, null=True)
-    chgpwdbefore = models.CharField(max_length=30, blank=True, null=True)
-    chgpwdafter = models.CharField(max_length=30, blank=True, null=True)
+    chgpwd = models.CharField(max_length=100, blank=True, null=True)
+    chgpwdbefore = models.CharField(max_length=100, blank=True, null=True)
+    chgpwdafter = models.CharField(max_length=100, blank=True, null=True)
     userno = models.ForeignKey('Users', models.DO_NOTHING, db_column='userno')
 
     class Meta:
@@ -64,5 +66,3 @@ class Userloginactivityrecords(models.Model):
     class Meta:
         # managed = False
         db_table = 'UserLoginActivityRecords'
-
-

@@ -4,16 +4,16 @@ create database apptasklistmng;
 use apptasklistmng;
 create table Users
 (	userno	 		INT not null AUTO_INCREMENT ,
-	userfirstname	varCHAR(20) not null,
-    usermiddlename	varCHAR(20),
-	userlastname 	varchar(20) not null,
-    usernickname	varchar(20) not null,
-    useremail		varchar(30) not null,
-    usergender		varchar(10) not null,
-	userpwd			varchar(30) Not Null,
+	userfirstname	varCHAR(100) not null,
+    usermiddlename	varCHAR(100),
+	userlastname 	varchar(100) not null,
+    usernickname	varchar(100) not null,
+    useremail		varchar(100) not null,
+    usergender		varchar(20) not null,
+	userpwd			varchar(100) Not Null,
 	userdob     	DATE not null,
 	usernote1		int,
-	usernote2		varchar(30),
+	usernote2		varchar(300),
     Constraint UsersPK Primary key (userno),
     Constraint UsersUni	Unique(usernickname)
 );
@@ -21,7 +21,7 @@ create table Users
     
 create table Tasks(
 	taskno				INT not null AUTO_INCREMENT,
-    taskcontext			varchar(100) not null,
+    taskcontext			varchar(300) not null,
     taskddl				DATE,
     taskorder			int not null,
     taskimportant		BOOLEAN not null,
@@ -34,12 +34,12 @@ create table Tasks(
 create table UserChangeRecords (
 	chgno		INT not null AUTO_INCREMENT,
 	chgtime 	DATETIME not null,
-	chgentry	varchar(30),
+	chgentry	varchar(100),
 	chgbefore	varchar(100),
 	chgafter	varchar(100),
-	chgpwd		varchar(30),
-	chgpwdbefore	varchar(30),
-	chgpwdafter		varchar(30),
+	chgpwd		varchar(100),
+	chgpwdbefore	varchar(100),
+	chgpwdafter		varchar(100),
 	userno	 		int not null,
     Constraint UserChangeRecordsPK Primary key (chgno),
 	CONSTRAINT UserChangeRecordsFK FOREIGN KEY (userno) REFERENCES Users (userno)

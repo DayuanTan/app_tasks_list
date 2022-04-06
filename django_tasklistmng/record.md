@@ -133,6 +133,7 @@ Running migrations:
 **check**
 
 (vene) proj_tasks_list/django_tasklistmng(main✗) ]$ ```python manage.py shell```
+```
 Python 3.7.2 (v3.7.2:9a3ffc0492, Dec 24 2018, 02:44:43)
 [Clang 6.0 (clang-600.0.57)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
@@ -144,11 +145,12 @@ Type "help", "copyright", "credits" or "license" for more information.
 <QuerySet [<Users: Users object (1)>]>
 >>> Users.objects.filter(userfirstname="testfirstname")
 <QuerySet [<Users: Users object (1)>]>
-
+```
 
 
 proj_tasks_list/django_tasklistmng(main✗) ]
  $ ```python manage.py createsuperuser```
+ ```
 Username (leave blank to use 'dyt'): admin
 Email address: admin@xample.com
 Password:admin
@@ -158,7 +160,7 @@ This password is too short. It must contain at least 8 characters.
 This password is too common.
 Bypass password validation and create user anyway? [y/N]: y
 Superuser created successfully.
-
+```
 
 
 proj_tasks_list/django_tasklistmng(main✗) ]
@@ -187,3 +189,10 @@ app_name = 'tasklistmng'
 **correct** their relative path.
 
 Django works with tasklist now  (localstorage version, no database  connect).
+
+## footer/header
+
+**add** component footer.js/header.js in static/apptasklistmng/js/components
+
+## form submit
+

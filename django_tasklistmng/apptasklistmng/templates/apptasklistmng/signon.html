@@ -9,6 +9,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/tasksListStyle.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/footer.css' %}">
     <link rel="icon" href="{% static 'apptasklistmng/img/d.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/signOnIn.css' %}">
     
 
     <script src="{% static 'apptasklistmng/js/components/header.js' %}" type="text/javascript" defer></script>
@@ -22,95 +23,98 @@
         
 <div id="tasks_list" class="tasks_list">
     <div id="tasks_list_title" class="tasks_list_title">Sign On</div>     
-    <table id="signontable"> 
-    <form class="tasks_list_form" id="signonform" name="signonform">
-
+    <table id="signontable" class="sigontable"> 
+        <form class="signonform" id="signonform" action="{% url 'apptasklistmng:signonprocess'  %}" method="POST">
+            {% csrf_token %} 
+            <tr>
+                <td >
+                    <label for="id_userfirstname">
+                        First Name:
+                    </label>
+                </td>
+                <td><input type="text" id="id_userfirstname" name="userfirstname" maxlength="20"  required/></input>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <label for="id_usermiddlename">
+                        Middle Name:
+                    </label>
+                </td>
+                <td><input type="text" id="id_usermiddlename" name= "usermiddlename" maxlength="20" /></input>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <label for="id_userlastname">
+                        Last Name:
+                    </label>
+                </td>
+                <td><input type="text" id="id_userlastname" name="userlastname" maxlength="20"  required/></input>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <label for="id_usernickname">
+                        Username:
+                    </label>
+                </td>
+                <td><input type="text" id="id_usernickname" name="usernickname" maxlength="20"  required/></input>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                <label for="id_userpwd">
+                    Password:
+                </label>
+                </td>
+                <td><input type="password" id="id_userpwd" name="userpwd" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*" 
+                        minlength="8"  maxlength="30" required></input> 
+                    <i class="fa fa-question-circle" title="8 characters minimum; 
+Consist of letters or numbers;
+At least 1 Upper letter;
+At least 1 lower letter;
+At least 1 number."></i>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Email:
+                </td>
+                <td><input type="email" id="id_useremail" pattern=".+@.+\..+" size="30" name="useremail" maxlength="30" required></input>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <label for="id_usergender">
+                        Gender:
+                    </label>
+                </td>
+                <td>
+                    <select id="id_usergender" name="usergender">
+                        <option value="none" selected>Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">other</option>        
+                    </select>
+                    
+                </td>
+            </tr>
+            
+            <tr>
+                <td><label for = "id_userdob">
+                    DoB:
+                    </label>
+                </td>
+                <td><input type="date" id="id_userdob" name="userdob"></input>
+                </td>
+            </tr>
+            
         
-        <tr>
-            <td style="width: 10%;">
-                <label for="firstname">
-                    First Name:
-                </label>
-            </td>
-            <td><input type="text" id="firstname" name="firstname" required/></input>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 10%;">
-                <label for="middlename">
-                    Middle Name:
-                </label>
-            </td>
-            <td><input type="text" id="middlename" /></input>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 10%;">
-                <label for="lastname">
-                    Last Name:
-                </label>
-            </td>
-            <td><input type="text" id="lastname" required/></input>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 10%;">
-                <label for="username">
-                    Username:
-                </label>
-            </td>
-            <td><input type="text" id="username" required/></input>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 10%;">
-            <label for="password">
-                Password (8 characters minimum):
-            </label>
-            </td>
-            <td><input type="password" id="password" name="password" pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*" 
-                    minlength="8"  maxlength="32" required></input> 
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Email:
-            </td>
-            <td><input type="email" id="email" pattern=".+@.+\..+" size="30" required></input>
-            </td>
-        </tr>
-        <tr>
-            <td style="width: 10%;">
-                <label for="gender">
-                    Gender:
-                </label>
-            </td>
-            <td>
-                <label for="gender"> Select your gender </label>
-                <select name="gender" id="gender">
-                    <option value="none" selected>Gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="other">other</option>        
-                </select>
-                
-            </td>
-        </tr>
-        
-        <tr>
-            <td><label for = "dob">
-                DoB:
-                </label>
-            </td>
-            <td><input type="date" id="dob"></input>
-            </td>
-        </tr>
-        
-    
-        <tr>
-            <td><button type="submit">Creat account</button></td>
-        </tr>
-    </form>
+            <tr>
+                <td><button type="submit">Creat account</button></td>
+            </tr>
+        </form>
     </table>
 </div>
  
