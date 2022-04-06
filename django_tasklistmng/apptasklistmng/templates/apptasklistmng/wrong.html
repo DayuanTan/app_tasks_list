@@ -1,0 +1,28 @@
+<html>
+<head>
+{% load static %}
+<title>Something Incorrect</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css"/>
+
+<link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/tasksListStyle.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/footer.css' %}">
+<link rel="icon" href="{% static 'apptasklistmng/img/d.ico' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'apptasklistmng/css/signOnIn.css' %}">
+
+<script src="{% static 'apptasklistmng/js/components/header.js' %}" type="text/javascript" defer></script>
+<script src="{% static 'apptasklistmng/js/components/footer.js' %}" type="text/javascript" defer></script>
+
+</head>
+
+<body>
+<header-component></header-component>
+
+<div id="tasks_list" class="tasks_list">
+    <div id="tasks_list_title" class="tasks_list_title">Something Incorrect</div>   
+    <p style="text-align: center">{{errormsg}}</p>
+</div>
+
+
+<footer-component></footer-component> 
+</body>
+</html>

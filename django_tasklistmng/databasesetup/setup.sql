@@ -59,7 +59,7 @@ insert Users
 values (NULL, "testfirstname", "testmiddlename", "testlastname", "testnickname",
     "testemail"		,
     "testmale"		,
-	"testpwd"		,
+	"testpwdA1"		,
 	CURDATE()     	,
 	1				,
 	"testnote2"

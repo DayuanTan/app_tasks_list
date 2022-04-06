@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 
@@ -42,15 +42,26 @@ def signinprocess(request): #, usernickname, userpwd):
             userpwd = form['userpwd'].value()
             print("form1 usernickname value: ", usernickname)
             print("form1 userpwd value: ", userpwd)
-
-            # redirect to a new URL:
-            # return HttpResponseRedirect("userprofile/")
+            
+            # connect DB
+            user = Users.objects.get(pk=1)
+            try:
+                user = Users.objects.get(usernickname=usernickname, userpwd=userpwd)
+            except user.DoesNotExist:
+                return render(request, 'apptasklistmng/wrong.html', {"errormsg": "Username or Password Incorrect. Please try again."})            
             return render(request, 'apptasklistmng/userprofile.html', {"usernickname": usernickname, "userpwd": userpwd})
+            
+            # if get_object_or_404(Users, usernickname=usernickname, userpwd=userpwd):
+            #     # redirect to a new URL:
+            #     # return HttpResponseRedirect("userprofile/")
+            #     return render(request, 'apptasklistmng/userprofile.html', {"usernickname": usernickname, "userpwd": userpwd})
+            # else:
+            #     return HttpResponse("hello signin process username or pwd incorrect ")
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = SignInForm()
-        return HttpResponse("hello signin process don't use get ")
+        return render(request, 'apptasklistmng/wrong.html', {"errormsg": "Hello signon process don't use get."}) 
     
 def signonprocess(request):
     if request.method == 'POST':
@@ -73,10 +84,18 @@ def signonprocess(request):
             print("usedob: ", userdob)
             print("usergender: ", usergender)
             print("userpwd: ", userpwd)
+            
+             # connect DB
+            user = Users.objects.get(pk=1)
+            try:
+                user = Users.objects.get(usernickname=usernickname, userpwd=userpwd)
+            except user.DoesNotExist:
+                return render(request, 'apptasklistmng/wrong.html', {"errormsg": "Something Incorrect. Please try again."})            
             return render(request, "apptasklistmng/userprofile.html", {"usernickname": usernickname, "userpwd": userpwd, "userlastname: ": userlastname, "userfirstname: ": userfirstname,"usermiddlename: ": usermiddlename, "useremail: ": useremail,"usedob: ": userdob, "usergender: ":usergender })
-        return HttpResponse("hello signon process invalid")
+        
+        return render(request, 'apptasklistmng/wrong.html', {"errormsg": "Hello signon process invalid."}) 
     else:
-        return HttpResponse("hello signon process don't use get")
+        return render(request, 'apptasklistmng/wrong.html', {"errormsg": "Hello signon process don't use get."}) 
     
 # def userprofile(request):
 #     return HttpResponse("userprofile page")
