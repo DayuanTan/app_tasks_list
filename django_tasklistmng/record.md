@@ -273,3 +273,8 @@ Users.objects.create(userfirstname=userfirstname, usermiddlename=usermiddlename,
                 usernickname=usernickname, useremail=useremail, 
                 usergender=usergender, userpwd=userpwd, userdob=userdob) #  == update Users set column=value where condition
 ```
+
+## Hashlib
+For userpwd we store the hased value instead of origin pwd value. But python hash() generates new hashed value for same input for each session. So don't use it.
+
+Use hashlib.
