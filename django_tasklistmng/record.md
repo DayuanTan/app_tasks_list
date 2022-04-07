@@ -252,3 +252,24 @@ If Don't add it will be ugly like this:
 path('signin.html', views.signin, name='signin'),
 re_path(r'\w*/signin.html$', views.signinLongerUrl, name='signinLonger'),
 ```
+
+## Connect DB and select, update
+
+After getting submitted data from HTML-FORM element, and using forms.py to read those data into variables, 
+
+use Django Model models.py to select and update with DB.
+
+```py
+# connect DB
+# select
+try:
+    user = Users.objects.get(usernickname=usernickname, userpwd=userpwd) # == select * from Users where usernickname=usernickname, userpwd=userpwd
+except Users.DoesNotExist:
+    return render(request, 'apptasklistmng/signin.html', {"errormsg": "Username or Password Incorrect. Please try again."})            
+return render(request, 'apptasklistmng/userprofile.html', {"usernickname": usernickname, "userpwd": userpwd})         
+
+# update
+Users.objects.create(userfirstname=userfirstname, usermiddlename=usermiddlename, userlastname=userlastname, 
+                usernickname=usernickname, useremail=useremail, 
+                usergender=usergender, userpwd=userpwd, userdob=userdob) #  == update Users set column=value where condition
+```

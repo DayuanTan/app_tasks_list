@@ -1,4 +1,5 @@
 
+//  didn't use this later. Use django forms instead.
 
 let myForm = document.getElementById('myForm');
 myForm.addEventListener('submit', (e) => {

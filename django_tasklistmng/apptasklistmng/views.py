@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+import hashlib
 
 from .models import Users, Userchangerecords, Userloginactivityrecords, Tasks
 from .forms import SignInForm, SignOnForm
@@ -37,20 +38,22 @@ def signinprocess(request): #, usernickname, userpwd):
             # process the data in form.cleaned_data as required
             # ...
             form.cleaned_data
-            print("form1: ", form)
+            print("signin form: ", form)
             usernickname = form['usernickname'].value()
             userpwd = form['userpwd'].value()
-            print("form1 usernickname value: ", usernickname)
-            print("form1 userpwd value: ", userpwd)
+            print("signin form usernickname value: ", usernickname)
+            print("signin form userpwd value: ", userpwd)
+            userpwd = str(hashlib.md5( userpwd.encode() ).hexdigest())
+            print("userpwd hash: ", userpwd)
             
             # connect DB
-            user = Users.objects.get(pk=1)
             try:
                 user = Users.objects.get(usernickname=usernickname, userpwd=userpwd)
-            except user.DoesNotExist:
-                return render(request, 'apptasklistmng/wrong.html', {"errormsg": "Username or Password Incorrect. Please try again."})            
+            except Users.DoesNotExist:
+                return render(request, 'apptasklistmng/signin.html', {"errormsg": "Username or Password Incorrect. Please try again."})            
             return render(request, 'apptasklistmng/userprofile.html', {"usernickname": usernickname, "userpwd": userpwd})
             
+            # Another way but abandon
             # if get_object_or_404(Users, usernickname=usernickname, userpwd=userpwd):
             #     # redirect to a new URL:
             #     # return HttpResponseRedirect("userprofile/")
@@ -76,21 +79,24 @@ def signonprocess(request):
             usergender = form["usergender"].value()
             usernickname = form["usernickname"].value()
             userpwd = form["userpwd"].value()
-            print("usernickname: ", usernickname)
-            print("userlastname: ", userlastname)
-            print("userfirstname: ", userfirstname)
-            print("usermiddlename: ", usermiddlename)
-            print("useremail: ", useremail)
-            print("usedob: ", userdob)
-            print("usergender: ", usergender)
-            print("userpwd: ", userpwd)
+            print("signon form usernickname: ", usernickname)
+            print("signon form userlastname: ", userlastname)
+            print("signon form userfirstname: ", userfirstname)
+            print("signon form usermiddlename: ", usermiddlename)
+            print("signon form useremail: ", useremail)
+            print("signon form usedob: ", userdob)
+            print("signon form usergender: ", usergender)
+            print("signon form userpwd: ", userpwd)
+            userpwd = str(hashlib.md5( userpwd.encode() ).hexdigest())
+            print("signon form userpwd hash: ", userpwd)
             
-             # connect DB
-            user = Users.objects.get(pk=1)
+            # connect DB
             try:
-                user = Users.objects.get(usernickname=usernickname, userpwd=userpwd)
-            except user.DoesNotExist:
-                return render(request, 'apptasklistmng/wrong.html', {"errormsg": "Something Incorrect. Please try again."})            
+                Users.objects.create(userfirstname=userfirstname, usermiddlename=usermiddlename, userlastname=userlastname, 
+                usernickname=usernickname, useremail=useremail, 
+                usergender=usergender, userpwd=userpwd, userdob=userdob)
+            except:
+                return render(request, "apptasklistmng/wrong.html", {"errormsg": "User Sign On Failed. Please try again."})           
             return render(request, "apptasklistmng/userprofile.html", {"usernickname": usernickname, "userpwd": userpwd, "userlastname: ": userlastname, "userfirstname: ": userfirstname,"usermiddlename: ": usermiddlename, "useremail: ": useremail,"usedob: ": userdob, "usergender: ":usergender })
         
         return render(request, 'apptasklistmng/wrong.html', {"errormsg": "Hello signon process invalid."}) 
