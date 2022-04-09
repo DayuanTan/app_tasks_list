@@ -41,7 +41,12 @@
     <div id="tasks_list" class="tasks_list">
       <div id="tasks_list_title" class="tasks_list_title">Task List Management</div>      
       {% comment %} <button type="button" id="weatherbutton">Show Weather Today!</button> {% endcomment %}
-      <p id="weatherinfo" class="weatherinfo"></p>
+      <div class="weatherouter">
+        <div class="weather">
+          <img id="weatherinfoimg" class="weatherinfoimg" src="" />
+          <p id="weatherinfo" class="weatherinfo"></p>
+        </div>  
+      </div>
       <form class="tasks_list_form" id="tasks_list_form" name="tasks_list_form">
         <input autofocus aria-label="Enter a new task"
           class="tasks_list_input"

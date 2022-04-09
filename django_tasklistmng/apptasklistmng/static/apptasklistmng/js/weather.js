@@ -29,7 +29,7 @@ function showPositionAndAddToHTML(position){
             document.getElementById("weatherinfo").textContent ="Weather today is " + weather + ". The temp is " + String((tempmin - 273.15).toFixed(2)) + " ~ " + String((tempmax - 273.15).toFixed(2)) + " Celsius.";
             
             let iconurl = 'http://openweathermap.org/img/wn/'+ iconid + '.png';
-            document.getElementById("weatherinfo").setAttribute("src", iconurl);
+            document.getElementById("weatherinfoimg").setAttribute("src", iconurl);
         }
     }
 }
