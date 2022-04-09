@@ -278,3 +278,9 @@ Users.objects.create(userfirstname=userfirstname, usermiddlename=usermiddlename,
 For userpwd we store the hased value instead of origin pwd value. But python hash() generates new hashed value for same input for each session. So don't use it.
 
 Use hashlib.
+
+# Add openweathermap.org API vis HTTPRequest
+
+Add an element in tasklist.html. Create weather.js.
+
+https://openweathermap.org/current#geo
