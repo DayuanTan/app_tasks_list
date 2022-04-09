@@ -24,7 +24,7 @@
   <script src="{% static 'apptasklistmng/js/useful_node_modules/sortablejs/modular/sortable.core.esm.js' %}" type="module"></script>
   <script src="{% static 'apptasklistmng/js/components/header.js' %}" type="text/javascript" defer></script>
   <script src="{% static 'apptasklistmng/js/components/footer.js' %}" type="text/javascript" defer></script>
-  
+  <script src="{% static 'apptasklistmng/js/weather.js' %}" type="module" ></script>
 
 
 </head>
@@ -40,6 +40,8 @@
     <!-- tasks list part begin-->
     <div id="tasks_list" class="tasks_list">
       <div id="tasks_list_title" class="tasks_list_title">Task List Management</div>      
+      {% comment %} <button type="button" id="weatherbutton">Show Weather Today!</button> {% endcomment %}
+      <p id="weatherinfo" class="weatherinfo"></p>
       <form class="tasks_list_form" id="tasks_list_form" name="tasks_list_form">
         <input autofocus aria-label="Enter a new task"
           class="tasks_list_input"

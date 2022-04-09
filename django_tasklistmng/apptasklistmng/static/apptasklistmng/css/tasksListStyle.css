@@ -12,6 +12,15 @@
     opacity: 0.5;
 }
 
+
+.weatherinfo {
+    text-align: center;
+    margin-bottom: 20px;
+    /* font-size: 80px; */
+    opacity: 0.6;
+}
+
+
 .task_nofound_prompt {
     text-align: center;
     font-size: 20px;
