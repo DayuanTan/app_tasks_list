@@ -1,4 +1,6 @@
-# Records
+# If just to run the project
+
+# Implementation Records
 
 ## Django init
 
