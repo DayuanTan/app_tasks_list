@@ -1,5 +1,18 @@
 # If just to run the project
 
+proj_tasks_list(main✗) ]$ ```source venv/bin/activate```
+(vene)
+
+
+(vene) proj_tasks_list/django_tasklistmng(main✗) ]
+ $  ```python manage.py runserver```
+
+or ```python manage.py runserver 8001```
+
+
+
+
+
 # Implementation Records
 
 ## Django init
